@@ -7,6 +7,7 @@ import './styles.css'
 function App() {
 
   const [input, setInput] = useState('')
+  const [cep, setCep] = useState({})
 
   async function handleSearch() {
     if (input === '') {
@@ -15,9 +16,13 @@ function App() {
     }
     try {
       const response = await api.get(`${input}/json`)
+      setCep(response.data)
+      setInput('')
+
 
     } catch {
       alert('CEP não encontrado')
+      setInput('')
     }
   }
 
@@ -39,17 +44,19 @@ function App() {
       </div>
 
 
+      {Object.keys(cep).length > 0 && (
+        <main className='main'>
+          <h2>CEP:{cep.cep}</h2>
 
-      <main className='main'>
-        <h2>CEP: 36052150</h2>
-
-        <span>Rua Augusto Alves</span>
-        <span>Complemento: ALgum complemento</span>
-        <span>Grajau</span>
-        <span>Juiz de Fora - MG</span>
+          <span>{cep.logradouro}</span>
+          <span>Complemento: {cep.complemento}</span>
+          <span>{cep.bairro}</span>
+          <span>{cep.localidade} - {cep.uf}</span>
 
 
-      </main>
+        </main>
+      )}
+
     </div>
 
 
