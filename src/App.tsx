@@ -1,33 +1,58 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { FiSearch } from 'react-icons/fi'
+import api from './services/api'
+import './styles.css'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [input, setInput] = useState('')
+
+  async function handleSearch() {
+    if (input === '') {
+      alert('Digite um CEP')
+      return;
+    }
+    try {
+      const response = await api.get(`${input}/json`)
+
+    } catch {
+      alert('CEP não encontrado')
+    }
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="container">
+      <h1 className="title">Buscador CEP</h1>
+
+      <div className="container_input">
+        <input
+          type="text"
+          placeholder="Digite o seu CEP"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+
+        <button className="buttonSearch" onClick={handleSearch}>
+          <FiSearch size={25} color="#fff" />
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+
+
+      <main className='main'>
+        <h2>CEP: 36052150</h2>
+
+        <span>Rua Augusto Alves</span>
+        <span>Complemento: ALgum complemento</span>
+        <span>Grajau</span>
+        <span>Juiz de Fora - MG</span>
+
+
+      </main>
     </div>
+
+
   )
 }
 
