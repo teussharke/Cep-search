@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
+import Particles from 'react-particles-js'
 import api from './services/api'
 import './styles.css'
 
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <div className="container">
+
       <h1 className="title">Buscador CEP</h1>
 
       <div className="container_input">
